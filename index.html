@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Good Morning, Love</title>
+<style>
+:root{
+  --bg-0:#05010a;--bg-1:#0c0210;
+  --pink-hot:#ff2f6d;--pink-mid:#ff6f9c;--pink-soft:#ffb8cf;
+  --rose-deep:#b31547;--cream:#fdf3ef;--cream-dim:#e9c9d3;
+  --glow-a:rgba(255,47,109,.55);--glow-b:rgba(255,111,156,.35);
+  --font-display:'Dancing Script','Segoe Script',cursive;
+  --font-body:'Cormorant Garamond',Georgia,serif;
+}
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;width:100%;height:100%;background:var(--bg-0);overflow-x:hidden}
+body{
+  min-height:100vh;color:var(--cream);font-family:var(--font-body);position:relative;
+  animation:pageFadeIn 1.4s ease forwards;
+  background:radial-gradient(ellipse 70% 55% at 78% 45%,var(--glow-b),transparent 60%),
+             radial-gradient(ellipse 60% 50% at 15% 80%,rgba(255,47,109,.12),transparent 65%),
+             linear-gradient(160deg,var(--bg-1),var(--bg-0) 60%);
+}
+@keyframes pageFadeIn{from{opacity:0}to{opacity:1}}
+#stars-canvas,#burst-canvas{
+  position:fixed;inset:0;width:100%;height:100%;pointer-events:none
+}
+#stars-canvas{z-index:0}#burst-canvas{z-index:50}
+.card{position:relative;z-index:1;display:flex;flex-direction:row;min-height:100vh;width:100%}
+.message-panel{
+  flex:1 1 46%;display:flex;flex-direction:column;justify-content:center;
+  padding:8vh 7vw;gap:1.4rem;max-width:720px
+}
+.greeting{
+  font-family:var(--font-display);font-weight:700;font-size:clamp(2.4rem,6vw,4.4rem);
+  line-height:1.15;margin:0;color:var(--cream);
+  text-shadow:0 0 14px var(--glow-a),0 0 40px rgba(255,47,109,.35);
+  opacity:0;transform:translateY(28px);
+  animation:riseIn 1.1s cubic-bezier(.22,1,.36,1) forwards;animation-delay:.35s
+}
+.heart-emoji{display:inline-block;filter:drop-shadow(0 0 10px var(--glow-a));animation:emojiBeat 1.8s ease-in-out infinite;animation-delay:2.2s}
+@keyframes emojiBeat{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+.message{
+  font-family:var(--font-body);font-style:italic;font-weight:400;
+  font-size:clamp(1.05rem,1.7vw,1.35rem);line-height:1.65;color:var(--cream-dim);
+  margin:0;max-width:46ch;opacity:0;transform:translateY(24px);
+  animation:riseIn 1s cubic-bezier(.22,1,.36,1) forwards
+}
+.m1{animation-delay:.95s}.m2{animation-delay:1.25s}
+@keyframes riseIn{to{opacity:1;transform:translateY(0)}}
+.hearts-panel{
+  flex:1 1 54%;position:relative;overflow:hidden;min-height:46vh;
+  opacity:0;animation:panelFade 1.8s ease forwards;animation-delay:.5s
+}
+@keyframes panelFade{to{opacity:1}}
+#hearts-canvas{position:absolute;inset:0;width:100%;height:100%}
+.big-heart-wrap{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.5);
+  font-size:clamp(64px,13vw,128px);opacity:0;z-index:3;
+  animation:heartArrive 1.3s cubic-bezier(.2,.9,.25,1.2) forwards;animation-delay:1s
+}
+@keyframes heartArrive{to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+.pulse-ring{
+  position:absolute;top:50%;left:50%;width:1em;height:.9em;border:1.5px solid var(--pink-mid);
+  border-radius:50%;transform:translate(-50%,-50%) scale(.6);opacity:0;
+  animation:ringPulse 2.6s ease-out infinite
+}
+.r1{animation-delay:2.3s}.r2{animation-delay:3.2s}.r3{animation-delay:4.1s}
+@keyframes ringPulse{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.6)}
+  15%{opacity:.55}100%{opacity:0;transform:translate(-50%,-50%) scale(2.1)}
+}
+.big-heart{
+  position:relative;width:1em;height:.9em;margin:0 auto;
+  filter:drop-shadow(0 0 18px var(--glow-a)) drop-shadow(0 0 46px var(--glow-b));
+  animation:heartBeat 1.15s ease-in-out infinite;animation-delay:2.3s
+}
+.big-heart::before,.big-heart::after{
+  content:"";position:absolute;top:0;width:.5em;height:.8em;
+  background:radial-gradient(circle at 32% 28%,var(--pink-soft),var(--pink-hot) 55%,var(--rose-deep) 100%);
+  border-radius:.5em .5em 0 0
+}
+.big-heart::before{left:.5em;transform:rotate(-45deg);transform-origin:0 100%}
+.big-heart::after{left:0;transform:rotate(45deg);transform-origin:100% 100%}
+@keyframes heartBeat{
+  0%,100%{transform:scale(1)}14%{transform:scale(1.14)}28%{transform:scale(1)}
+  42%{transform:scale(1.1)}70%{transform:scale(1)}
+}
+@media(max-width:860px){
+  .card{flex-direction:column}.message-panel{max-width:100%;padding:9vh 8vw 3vh;text-align:center;align-items:center}
+  .message{max-width:52ch}.hearts-panel{min-height:52vh;flex:1 1 auto}
+  .big-heart-wrap{font-size:clamp(70px,24vw,110px)}
+}
+@media(prefers-reduced-motion:reduce){
+  body,.greeting,.message,.hearts-panel,.big-heart-wrap{animation-duration:.01ms!important;animation-delay:0s!important;transform:none!important;opacity:1!important}
+  .big-heart,.pulse-ring,.heart-emoji{animation:none}
+}
+footer.credit{
+  position:fixed;bottom:10px;left:50%;transform:translateX(-50%);
+  font-family:var(--font-body);font-style:italic;font-size:.8rem;
+  color:rgba(233,201,211,.35);z-index:2;pointer-events:none
+}
+</style>
+</head>
+<body>
+<canvas id="stars-canvas"></canvas>
+<canvas id="burst-canvas"></canvas>
+
+<div class="card">
+  <section class="message-panel">
+    <h1 class="greeting">Good morning Love <span class="heart-emoji">🤍</span></h1>
+    <p class="message m1">I hope you slept well and woke up feeling good today.</p>
+    <p class="message m2">I hope you have a beautiful day ahead, and don’t forget to smile because you deserve all the happiness in the world.</p>
+  </section>
+
+  <section class="hearts-panel">
+    <canvas id="hearts-canvas"></canvas>
+    <div class="big-heart-wrap">
+      <div class="pulse-ring r1"></div><div class="pulse-ring r2"></div><div class="pulse-ring r3"></div>
+      <div class="big-heart"></div>
+    </div>
+  </section>
+</div>
+
+<footer class="credit">tap anywhere for a little more love ✨</footer>
+
+<script>
+(function(){
+"use strict";
+const CONFIG={
+  heartColors:['#ff2f6d','#ff6f9c','#ff8fb3','#c81d4f','#ff4d6d','#ffb8cf'],
+  heartCount:46,starCount:120,dustCount:22,
+  reducedMotion:window.matchMedia('(prefers-reduced-motion: reduce)').matches
+};
+const rand=(a,b)=>a+Math.random()*(b-a),pick=a=>a[Math.floor(Math.random()*a.length)];
+
+function heartPath(ctx,cx,cy,size,rot){
+  const steps=40;ctx.beginPath();
+  for(let i=0;i<=steps;i++){
+    const t=i/steps*Math.PI*2;
+    let hx=16*Math.pow(Math.sin(t),3),hy=-(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t));
+    hx*=size/16;hy*=size/16;
+    if(rot){const c=Math.cos(rot),s=Math.sin(rot),rx=hx*c-hy*s,ry=hx*s+hy*c;hx=rx;hy=ry}
+    const x=cx+hx,y=cy+hy;i===0?ctx.moveTo(x,y):ctx.lineTo(x,y)
+  }ctx.closePath()
+}
+function setupCanvas(canvas){
+  const ctx=canvas.getContext('2d');
+  function resize(){
+    const rect=canvas.parentElement===document.body?{width:innerWidth,height:innerHeight}:canvas.parentElement.getBoundingClientRect();
+    const dpr=Math.min(devicePixelRatio||1,2);
+    canvas.width=Math.max(1,rect.width*dpr);canvas.height=Math.max(1,rect.height*dpr);
+    canvas.style.width=rect.width+'px';canvas.style.height=rect.height+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0)
+  }resize();return{ctx,resize}
+}
+
+const heartsCanvas=document.getElementById('hearts-canvas'),hs=setupCanvas(heartsCanvas);
+let panelW=heartsCanvas.clientWidth,panelH=heartsCanvas.clientHeight;
+function makeHeart(spawnLow){
+  const size=rand(7,22);
+  return{x:rand(panelW*.05,panelW*.95),y:spawnLow?rand(panelH*.4,panelH*1.15):panelH+rand(10,panelH*.4),
+    size,speed:rand(14,32)/60,swayAmp:rand(10,34),swayFreq:rand(.4,1.1),swaySeed:rand(0,Math.PI*2),
+    baseX:0,color:pick(CONFIG.heartColors),rot:rand(-.35,.35),life:Math.random(),lifeSpeed:rand(.09,.16)}
+}
+let hearts=[];
+function seedHearts(){hearts=[];for(let i=0;i<CONFIG.heartCount;i++){const h=makeHeart(true);h.baseX=h.x;hearts.push(h)}}
+seedHearts();
+let sparkles=[];
+function seedSparkles(){sparkles=[];for(let i=0;i<30;i++)sparkles.push({x:rand(0,panelW),y:rand(0,panelH),r:rand(.6,1.8),seed:rand(0,Math.PI*2),speed:rand(.6,1.4)})}
+seedSparkles();
+
+function drawHeartsFrame(t){
+  const ctx=hs.ctx;ctx.clearRect(0,0,panelW,panelH);
+  for(const s of sparkles){
+    const tw=.35+.65*(.5+.5*Math.sin(t*.001*s.speed+s.seed));
+    const g=ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,s.r*4);
+    g.addColorStop(0,`rgba(255,214,225,${.85*tw})`);g.addColorStop(1,'rgba(255,214,225,0)');
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(s.x,s.y,s.r*4,0,Math.PI*2);ctx.fill()
+  }
+  for(const h of hearts){
+    let alpha;if(h.life<.14)alpha=h.life/.14;else if(h.life>.82)alpha=Math.max(0,(1-h.life)/.18);else alpha=1;
+    const x=h.baseX+Math.sin(t*.001*h.swayFreq+h.swaySeed)*h.swayAmp;
+    ctx.save();ctx.globalAlpha=alpha*.9;ctx.shadowColor=h.color;ctx.shadowBlur=h.size*1.4;ctx.fillStyle=h.color;
+    heartPath(ctx,x,h.y,h.size,h.rot);ctx.fill();ctx.restore()
+  }
+}
+let lastT=performance.now();
+function stepHearts(t){
+  const dt=Math.min(.05,(t-lastT)/1000);lastT=t;
+  for(const h of hearts){
+    h.life+=h.lifeSpeed*dt;h.y-=h.speed*(dt*60);
+    if(h.life>=1||h.y<-h.size*2){const fresh=makeHeart(false);Object.assign(h,fresh,{baseX:fresh.x});h.life=0}
+  }
+}
+
+const starsCanvas=document.getElementById('stars-canvas'),ss=setupCanvas(starsCanvas);
+let winW=innerWidth,winH=innerHeight,stars=[],dust=[];
+function seedSky(){
+  stars=[];for(let i=0;i<CONFIG.starCount;i++)stars.push({x:rand(0,winW),y:rand(0,winH),r:rand(.5,1.6),seed:rand(0,Math.PI*2),speed:rand(.3,1)});
+  dust=[];for(let i=0;i<CONFIG.dustCount;i++)dust.push({x:rand(0,winW),y:rand(0,winH),r:rand(1.5,3.5),vx:rand(-.05,.05),vy:rand(-.08,-.02),seed:rand(0,Math.PI*2),color:pick([CONFIG.heartColors[1],CONFIG.heartColors[2],'#ffffff'])})
+}
+seedSky();
+function hexToRgba(hex,a){if(hex==='#ffffff')return`rgba(255,255,255,${a})`;const n=parseInt(hex.slice(1),16),r=n>>16&255,g=n>>8&255,b=n&255;return`rgba(${r},${g},${b},${a})`}
+function drawSky(t){
+  const ctx=ss.ctx;ctx.clearRect(0,0,winW,winH);
+  for(const s of stars){const tw=.4+.6*(.5+.5*Math.sin(t*.0008*s.speed+s.seed));ctx.beginPath();ctx.fillStyle=`rgba(255,255,255,${.55*tw})`;ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill()}
+  for(const d of dust){const tw=.5+.5*Math.sin(t*.0009+d.seed),g=ctx.createRadialGradient(d.x,d.y,0,d.x,d.y,d.r*6);g.addColorStop(0,hexToRgba(d.color,.35*tw));g.addColorStop(1,hexToRgba(d.color,0));ctx.fillStyle=g;ctx.beginPath();ctx.arc(d.x,d.y,d.r*6,0,Math.PI*2);ctx.fill()}
+}
+function stepSky(dt){for(const d of dust){d.x+=d.vx*(dt*60);d.y+=d.vy*(dt*60);if(d.y<-10)d.y=winH+10;if(d.x<-10)d.x=winW+10;if(d.x>winW+10)d.x=-10}}
+
+const burstCanvas=document.getElementById('burst-canvas'),bs=setupCanvas(burstCanvas),bursts=[];
+function spawnBurst(x,y){
+  for(let i=0;i<9;i++){const a=rand(0,Math.PI*2),sp=rand(.6,2.2);bursts.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-1,size:rand(6,14),color:pick(CONFIG.heartColors),rot:rand(-.4,.4),age:0,maxAge:rand(.9,1.5)})}
+}
+document.addEventListener('pointerdown',e=>spawnBurst(e.clientX,e.clientY));
+function drawBursts(){
+  const ctx=bs.ctx;ctx.clearRect(0,0,innerWidth,innerHeight);
+  for(const b of bursts){const a=Math.max(0,1-b.age/b.maxAge);ctx.save();ctx.globalAlpha=a;ctx.shadowColor=b.color;ctx.shadowBlur=b.size;ctx.fillStyle=b.color;heartPath(ctx,b.x,b.y,b.size*a,b.rot);ctx.fill();ctx.restore()}
+}
+function stepBursts(dt){for(const b of bursts){b.age+=dt;b.x+=b.vx*(dt*60);b.y+=b.vy*(dt*60);b.vy+=.02*(dt*60)}}
+
+function loop(t){
+  const dt=Math.min(.05,(t-lastT)/1000)||.016;
+  if(!CONFIG.reducedMotion){stepHearts(t);stepSky(dt);stepBursts(dt)}
+  drawHeartsFrame(t);drawSky(t);drawBursts();requestAnimationFrame(loop)
+}
+requestAnimationFrame(loop);
+
+let resizeTimer;
+addEventListener('resize',()=>{
+  clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{
+    hs.resize();ss.resize();bs.resize();panelW=heartsCanvas.clientWidth;panelH=heartsCanvas.clientHeight;
+    winW=innerWidth;winH=innerHeight;seedHearts();seedSparkles();seedSky()
+  },150)
+});
+})();
+</script>
+</body>
+</html>
